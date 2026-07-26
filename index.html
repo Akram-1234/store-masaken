@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> إدارة المستودع - أصناف الإسانس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #06080f;
+            --bg-secondary: #0c1021;
+            --bg-card: #111633;
+            --bg-card-hover: #161d42;
+            --bg-item: #1a2148;
+            --bg-item-hover: #212a5a;
+            --text-primary: #eef0ff;
+            --text-secondary: #8b90b8;
+            --text-muted: #5a5f82;
+            --accent-blue: #4f6ef7;
+            --accent-purple: #7c3aed;
+            --accent-pink: #ec4899;
+            --accent-cyan: #22d3ee;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --gradient-main: linear-gradient(135deg, #4f6ef7 0%, #7c3aed 50%, #ec4899 100%);
+            --gradient-blue: linear-gradient(135deg, #3b82f6, #6366f1);
+            --gradient-pink: linear-gradient(135deg, #ec4899, #f472b6);
+            --gradient-amber: linear-gradient(135deg, #f59e0b, #fbbf24);
+            --gradient-green: linear-gradient(135deg, #10b981, #34d399);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.2);
+            --shadow-md: 0 8px 30px rgba(0,0,0,0.3);
+            --shadow-lg: 0 16px 50px rgba(0,0,0,0.4);
+            --shadow-glow-blue: 0 0 40px rgba(79,110,247,0.15);
+            --shadow-glow-purple: 0 0 40px rgba(124,58,237,0.15);
+            --radius-sm: 10px;
+            --radius-md: 16px;
+            --radius-lg: 22px;
+            --radius-full: 50px;
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== Background Effects ===== */
+        .bg-effects {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-effects::before {
+            content: '';
+            position: absolute;
+            top: -30%; left: -20%;
+            width: 70%; height: 70%;
+            background: radial-gradient(ellipse, rgba(79,110,247,0.06) 0%, transparent 70%);
+            animation: floatBg 20s ease-in-out infinite;
+        }
+
+        .bg-effects::after {
+            content: '';
+            position: absolute;
+            bottom: -30%; right: -20%;
+            width: 70%; height: 70%;
+            background: radial-gradient(ellipse, rgba(124,58,237,0.06) 0%, transparent 70%);
+            animation: floatBg 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes floatBg {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(2deg); }
+            66% { transform: translate(-20px, 20px) rotate(-1deg); }
+        }
+
+        .grid-pattern {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(79,110,247,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(79,110,247,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ===== Floating Particles ===== */
+        .particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: rgba(79,110,247,0.3);
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ===== Main Content Wrapper ===== */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            position: relative;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(79,110,247,0.1);
+            border: 1px solid rgba(79,110,247,0.2);
+            padding: 6px 18px;
+            border-radius: var(--radius-full);
+            color: var(--accent-blue);
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-badge i {
+            font-size: 0.7rem;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .header-logo {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            background: var(--gradient-main);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(79,110,247,0.3);
+            animation: logoFloat 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        .header-logo::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 30px;
+            background: var(--gradient-main);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(15px);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+
+        .header-logo i {
+            font-size: 38px;
+            color: white;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            font-weight: 400;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header .subtitle span {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* ===== Smart Hint ===== */
+        .smart-hint {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 0 20px;
+        }
+
+        .hint-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(34,211,238,0.08));
+            border: 1px solid rgba(16,185,129,0.2);
+            padding: 10px 22px;
+            border-radius: var(--radius-full);
+            color: #6ee7b7;
+            font-size: 0.82rem;
+            font-weight: 500;
+            flex-wrap: wrap;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .hint-pill .hint-icon {
+            width: 24px; height: 24px;
+            background: rgba(16,185,129,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== Stats Bar ===== */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            padding: 14px 22px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(79,110,247,0.1);
+            transition: var(--transition-normal);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+            background: var(--gradient-main);
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(79,110,247,0.3);
+            box-shadow: var(--shadow-glow-blue);
+        }
+
+        .stat-card:hover::before { opacity: 1; }
+
+        .stat-icon {
+            width: 42px; height: 42px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .stat-card:nth-child(1) .stat-icon { background: rgba(79,110,247,0.15); color: var(--accent-blue); }
+        .stat-card:nth-child(2) .stat-icon { background: rgba(124,58,237,0.15); color: var(--accent-purple); }
+        .stat-card:nth-child(3) .stat-icon { background: rgba(59,130,246,0.15); color: #60a5fa; }
+        .stat-card:nth-child(4) .stat-icon { background: rgba(236,72,153,0.15); color: var(--accent-pink); }
+
+        .stat-info { display: flex; flex-direction: column; }
+        .stat-number {
+            font-weight: 900;
+            font-size: 1.3rem;
+            line-height: 1;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+
+        /* ===== Search Container ===== */
+        .search-section {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 18px 20px;
+            background: rgba(6,8,15,0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px solid rgba(79,110,247,0.08);
+            transition: var(--transition-normal);
+        }
+
+        .search-section.scrolled {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        .search-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box .search-icon-wrapper {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px; height: 36px;
+            background: var(--gradient-main);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .search-box .search-icon-wrapper i {
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 18px 55px 18px 65px;
+            font-size: 16px;
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            border: 2px solid rgba(79,110,247,0.15);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            outline: none;
+            transition: var(--transition-normal);
+            letter-spacing: 0.3px;
+        }
+
+        #searchInput::placeholder {
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        #searchInput:focus {
+            border-color: var(--accent-blue);
+            background: var(--bg-card);
+            box-shadow: 0 0 0 4px rgba(79,110,247,0.1), var(--shadow-md);
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(239,68,68,0.12);
+            border: 1px solid rgba(239,68,68,0.2);
+            color: #f87171;
+            width: 34px; height: 34px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+            font-size: 0.8rem;
+        }
+
+        .clear-btn:hover {
+            background: rgba(239,68,68,0.25);
+            border-color: rgba(239,68,68,0.4);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .clear-btn.visible { display: flex; }
+
+        /* Search Results Info */
+        .search-meta {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: rgba(16,185,129,0.06);
+            border: 1px solid rgba(16,185,129,0.15);
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+        }
+
+        .search-meta.visible { display: flex; }
+
+        .search-meta .result-icon {
+            color: var(--accent-green);
+            font-size: 0.85rem;
+        }
+
+        .result-count-badge {
+            background: var(--gradient-green);
+            color: white;
+            padding: 2px 12px;
+            border-radius: var(--radius-full);
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* ===== Filter Tabs ===== */
+        .filter-section {
+            position: relative;
+            z-index: 1;
+            padding: 22px 15px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 10px 24px;
+            border-radius: var(--radius-full);
+            border: 2px solid rgba(79,110,247,0.15);
+            background: rgba(79,110,247,0.04);
+            color: var(--text-secondary);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-main);
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .filter-tab:hover {
+            border-color: rgba(79,110,247,0.4);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .filter-tab.active {
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 20px rgba(79,110,247,0.3);
+        }
+
+        .filter-tab.active::before { opacity: 1; }
+        .filter-tab i, .filter-tab span { position: relative; z-index: 1; }
+
+        .filter-count {
+            background: rgba(255,255,255,0.15);
+            padding: 1px 8px;
+            border-radius: var(--radius-full);
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .filter-tab:not(.active) .filter-count {
+            background: rgba(79,110,247,0.15);
+            color: var(--accent-blue);
+        }
+
+        /* ===== Category Cards ===== */
+        .cards-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 24px;
+            max-width: 1550px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .category-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(79,110,247,0.08);
+            transition: var(--transition-normal);
+            position: relative;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--gradient-main);
+            opacity: 0;
+            transition: var(--transition-normal);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg), var(--shadow-glow-purple);
+            border-color: rgba(79,110,247,0.2);
+        }
+
+        .category-card:hover::before { opacity: 0.02; }
+
+        /* Card Header */
+        .card-header {
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition-normal);
+        }
+
+        .card-header:hover { background: rgba(255,255,255,0.02); }
+
+        .card-header:active { transform: scale(0.995); }
+
+        /* Type-specific header styles */
+        .category-card[data-type="men"] .card-header {
+            background: linear-gradient(135deg, rgba(59,130,246,0.08), transparent);
+            border-bottom: 1px solid rgba(59,130,246,0.12);
+        }
+
+        .category-card[data-type="women"] .card-header {
+            background: linear-gradient(135deg, rgba(236,72,153,0.08), transparent);
+            border-bottom: 1px solid rgba(236,72,153,0.12);
+        }
+
+        .category-card[data-type="sealed"] .card-header {
+            background: linear-gradient(135deg, rgba(245,158,11,0.08), transparent);
+            border-bottom: 1px solid rgba(245,158,11,0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .type-icon {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .type-icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+        }
+
+        .category-card[data-type="men"] .type-icon {
+            background: var(--gradient-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+        }
+
+        .category-card[data-type="women"] .type-icon {
+            background: var(--gradient-pink);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236,72,153,0.3);
+        }
+
+        .category-card[data-type="sealed"] .type-icon {
+            background: var(--gradient-amber);
+            color: #78350f;
+            box-shadow: 0 4px 15px rgba(245,158,11,0.3);
+        }
+
+        .header-text h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .category-card[data-type="men"] .header-text h3 { color: #93c5fd; }
+        .category-card[data-type="women"] .header-text h3 { color: #f9a8d4; }
+        .category-card[data-type="sealed"] .header-text h3 { color: #fde68a; }
+
+        .header-text .sub-info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .item-count-badge {
+            padding: 5px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .category-card[data-type="men"] .item-count-badge {
+            background: rgba(59,130,246,0.12);
+            color: #93c5fd;
+            border: 1px solid rgba(59,130,246,0.2);
+        }
+
+        .category-card[data-type="women"] .item-count-badge {
+            background: rgba(236,72,153,0.12);
+            color: #f9a8d4;
+            border: 1px solid rgba(236,72,153,0.2);
+        }
+
+        .category-card[data-type="sealed"] .item-count-badge {
+            background: rgba(245,158,11,0.12);
+            color: #fde68a;
+            border: 1px solid rgba(245,158,11,0.2);
+        }
+
+        .toggle-arrow {
+            width: 28px; height: 28px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-normal);
+        }
+
+        .toggle-arrow i {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            transition: var(--transition-normal);
+        }
+
+        .category-card.collapsed .toggle-arrow i {
+            transform: rotate(-90deg);
+        }
+
+        .card-header:hover .toggle-arrow {
+            background: rgba(255,255,255,0.08);
+        }
+
+        /* ===== Perfume List ===== */
+        .perfume-list {
+            list-style: none;
+            padding: 8px 12px 12px;
+            margin: 0;
+            max-height: 520px;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1;
+            transition: max-height 0.45s ease, padding 0.45s ease, opacity 0.3s ease;
+        }
+
+        .category-card.collapsed .perfume-list {
+            max-height: 0;
+            padding: 0 12px;
+            overflow: hidden;
+            opacity: 0;
+        }
+
+        /* Custom Scrollbar */
+        .perfume-list::-webkit-scrollbar { width: 6px; }
+        .perfume-list::-webkit-scrollbar-track { background: transparent; margin: 5px 0; }
+        .perfume-list::-webkit-scrollbar-thumb {
+            background: rgba(79,110,247,0.2);
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        .perfume-list::-webkit-scrollbar-thumb:hover { background: rgba(79,110,247,0.4); }
+
+        /* ===== Perfume Item ===== */
+        .perfume-item {
+            background: var(--bg-item);
+            margin-bottom: 6px;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .perfume-item::before {
+            content: '';
+            position: absolute;
+            right: 0; top: 0;
+            width: 3px; height: 100%;
+            opacity: 0;
+            transition: var(--transition-fast);
+        }
+
+        .category-card[data-type="men"] .perfume-item::before { background: var(--gradient-blue); }
+        .category-card[data-type="women"] .perfume-item::before { background: var(--gradient-pink); }
+        .category-card[data-type="sealed"] .perfume-item::before { background: var(--gradient-amber); }
+
+        .perfume-item:hover {
+            background: var(--bg-item-hover);
+            border-color: rgba(79,110,247,0.15);
+            transform: translateX(-4px);
+        }
+
+        .perfume-item:hover::before { opacity: 1; }
+
+        .perfume-item:last-child { margin-bottom: 0; }
+
+        .item-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-name span:last-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .item-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .item-dot::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .category-card[data-type="men"] .item-dot {
+            background: #3b82f6;
+            box-shadow: 0 0 8px rgba(59,130,246,0.4);
+        }
+
+        .category-card[data-type="women"] .item-dot {
+            background: #ec4899;
+            box-shadow: 0 0 8px rgba(236,72,153,0.4);
+        }
+
+        .category-card[data-type="sealed"] .item-dot {
+            background: #fbbf24;
+            box-shadow: 0 0 8px rgba(251,191,36,0.4);
+        }
+
+        .item-badges {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+            align-items: center;
+        }
+
+        .badge {
+            font-size: 0.72rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.3px;
+        }
+
+        .badge i { font-size: 0.6rem; }
+
+        .badge-weight {
+            background: rgba(79,110,247,0.12);
+            color: #93b4fd;
+            border: 1px solid rgba(79,110,247,0.2);
+        }
+
+        .badge-shelf {
+            background: rgba(16,185,129,0.1);
+            color: #6ee7b7;
+            border: 1px solid rgba(16,185,129,0.2);
+        }
+
+        /* Highlight on search */
+        .perfume-item.highlight {
+            border-color: rgba(79,110,247,0.4) !important;
+            background: rgba(79,110,247,0.12) !important;
+            animation: highlightWave 0.6s ease;
+        }
+
+        .perfume-item.highlight::before { opacity: 1 !important; }
+
+        @keyframes highlightWave {
+            0% { box-shadow: 0 0 0 0 rgba(79,110,247,0.4); }
+            70% { box-shadow: 0 0 0 8px rgba(79,110,247,0); }
+            100% { box-shadow: 0 0 0 0 rgba(79,110,247,0); }
+        }
+
+        /* ===== No Results ===== */
+        #noResults {
+            display: none;
+            text-align: center;
+            padding: 60px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .no-results-visual {
+            width: 110px; height: 110px;
+            margin: 0 auto 25px;
+            background: rgba(239,68,68,0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(239,68,68,0.2);
+            animation: noResultsPulse 2s ease infinite;
+        }
+
+        @keyframes noResultsPulse {
+            0%, 100% { transform: scale(1); border-color: rgba(239,68,68,0.2); }
+            50% { transform: scale(1.05); border-color: rgba(239,68,68,0.4); }
+        }
+
+        .no-results-visual i {
+            font-size: 44px;
+            color: rgba(239,68,68,0.5);
+        }
+
+        #noResults h3 {
+            font-size: 1.4rem;
+            color: #f87171;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        #noResults p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        #noResults .suggestions {
+            margin-top: 20px;
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #noResults .suggestion-chip {
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            background: rgba(79,110,247,0.1);
+            border: 1px solid rgba(79,110,247,0.2);
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        #noResults .suggestion-chip:hover {
+            background: rgba(79,110,247,0.2);
+        }
+
+        /* ===== Back to Top ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px; height: 50px;
+            border-radius: 16px;
+            background: var(--gradient-main);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 6px 25px rgba(79,110,247,0.4);
+            transition: var(--transition-normal);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(79,110,247,0.5);
+        }
+
+        .back-to-top:active { transform: translateY(0); }
+
+        /* ===== Footer ===== */
+        .footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid rgba(79,110,247,0.08);
+        }
+
+        .footer-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .footer-brand i {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+        }
+
+        .footer-brand span {
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .footer p {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .footer .version {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(79,110,247,0.08);
+            padding: 3px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        /* ===== Keyboard Shortcut Hint ===== */
+        .shortcut-hint {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--bg-card);
+            border: 1px solid rgba(79,110,247,0.15);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+            backdrop-filter: blur(10px);
+        }
+
+        .shortcut-hint.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .key-badge {
+            background: rgba(79,110,247,0.15);
+            color: var(--accent-blue);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-family: monospace;
+            font-size: 0.75rem;
+            border: 1px solid rgba(79,110,247,0.25);
+        }
+
+        /* ===== Toast Notification ===== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: var(--bg-card);
+            border: 1px solid rgba(79,110,247,0.2);
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            z-index: 2000;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-normal);
+            backdrop-filter: blur(15px);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast i {
+            font-size: 1rem;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .header { padding: 35px 15px 20px; }
+            .header h1 { font-size: 1.8rem; }
+            .header .subtitle { font-size: 0.9rem; }
+            .header-logo { width: 72px; height: 72px; border-radius: 22px; }
+            .header-logo i { font-size: 30px; }
+
+            .stats-bar { gap: 8px; padding: 15px 10px; }
+            .stat-card { padding: 10px 16px; }
+            .stat-number { font-size: 1.1rem; }
+            .stat-icon { width: 36px; height: 36px; }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                padding: 0 12px 40px;
+                gap: 16px;
+            }
+
+            #searchInput { padding: 16px 50px 16px 55px; font-size: 15px; }
+
+            .filter-tab { padding: 8px 16px; font-size: 0.82rem; }
+
+            .perfume-item { padding: 10px 12px; }
+            .item-name { font-size: 0.88rem; }
+            .badge { font-size: 0.68rem; padding: 3px 8px; }
+
+            .shortcut-hint { display: none; }
+
+            .back-to-top { bottom: 20px; left: 20px; width: 44px; height: 44px; border-radius: 13px; }
+        }
+
+        @media (max-width: 400px) {
+            .header h1 { font-size: 1.5rem; }
+            .stat-card { padding: 8px 12px; }
+            .stat-label { display: none; }
+            .item-badges { flex-wrap: wrap; }
+        }
+
+        /* ===== Loading Animation ===== */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-spinner {
+            width: 50px; height: 50px;
+            border-radius: 16px;
+            background: var(--gradient-main);
+            animation: spinLoader 1.2s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spinLoader {
+            0% { transform: rotate(0deg) scale(1); border-radius: 16px; }
+            50% { transform: rotate(180deg) scale(0.8); border-radius: 50%; }
+            100% { transform: rotate(360deg) scale(1); border-radius: 16px; }
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* ===== Weight Total Row ===== */
+        .weight-total {
+            background: rgba(79,110,247,0.06);
+            border: 1px dashed rgba(79,110,247,0.2);
+            border-radius: var(--radius-sm);
+            padding: 10px 16px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .weight-total .total-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .weight-total .total-label i {
+            color: var(--accent-blue);
+        }
+
+        .weight-total .total-value {
+            font-weight: 800;
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
+        }
+
+        /* ===== Expand/Collapse All ===== */
+        .view-controls {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+
+        .view-btn {
+            padding: 6px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(79,110,247,0.15);
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .view-btn:hover {
+            border-color: rgba(79,110,247,0.3);
+            color: var(--text-secondary);
+            background: rgba(79,110,247,0.05);
+        }
+
+        .view-btn i { font-size: 0.7rem; }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">جاري تحميل بيانات المستودع...</div>
+    </div>
+
+    <!-- Background Effects -->
+    <div class="bg-effects"></div>
+    <div class="grid-pattern"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"><i></i><span></span></div>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+
+        <!-- Header -->
+        <div class="header">
+           
+            <div class="header-logo"><i class="fas fa-flask-vial"></i></div>
+            <h1>ادارة الزيوت بالمستودع</h1>
+        </div>
+
+       
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-boxes-stacked"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="totalCount">0</span>
+                    <span class="stat-label">إجمالي الأصناف</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-warehouse"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="categoryCount">0</span>
+                    <span class="stat-label">خزانة</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-mars"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="menCount">0</span>
+                    <span class="stat-label">رجالي</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-venus"></i></div>
+                <div class="stat-info">
+                    <span class="stat-number" id="womenCount">0</span>
+                    <span class="stat-label">نسائي</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="search-section" id="searchSection">
+            <div class="search-inner">
+                <div class="search-box">
+                    <div class="search-icon-wrapper"><i class="fas fa-search"></i></div>
+                    <input type="text" id="searchInput" placeholder="ابحث عن صنف الإسانس بالاسم أو الوزن..." autocomplete="off">
+                    <button class="clear-btn" id="clearBtn" onclick="clearSearch()"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="search-meta" id="searchMeta">
+                    <i class="fas fa-check-circle result-icon"></i>
+                    <span>تم العثور على</span>
+                    <span class="result-count-badge" id="resultsCount">0</span>
+                    <span>نتيجة</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterCategory('all', this)">
+                    <i class="fas fa-layer-group"></i>
+                    <span>الكل</span>
+                    <span class="filter-count" id="filterCountAll">0</span>
+                </button>
+                <button class="filter-tab" onclick="filterCategory('sealed', this)">
+                    <i class="fas fa-lock"></i>
+                    <span>مختوم ومسك</span>
+                    <span class="filter-count" id="filterCountSealed">0</span>
+                </button>
+                <button class="filter-tab" onclick="filterCategory('men', this)">
+                    <i class="fas fa-mars"></i>
+                    <span>رجالي</span>
+                    <span class="filter-count" id="filterCountMen">0</span>
+                </button>
+                <button class="filter-tab" onclick="filterCategory('women', this)">
+                    <i class="fas fa-venus"></i>
+                    <span>نسائي</span>
+                    <span class="filter-count" id="filterCountWomen">0</span>
+                </button>
+            </div>
+
+            <div class="view-controls" style="margin-top:12px;">
+                <button class="view-btn" onclick="expandAll()"><i class="fas fa-expand"></i> فتح الكل</button>
+                <button class="view-btn" onclick="collapseAll()"><i class="fas fa-compress"></i> طي الكل</button>
+            </div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="cards-grid" id="mainContainer">
+
+            <!-- ====== خزانة مختوم ومسك ====== -->
+            <div class="category-card" data-type="sealed">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="header-left">
+                        <div class="type-icon"><i class="fas fa-lock"></i></div>
+                        <div class="header-text">
+                            <h3>خزانة مختوم ومسك</h3>
+                            <span class="sub-info">أصناف المختوم والمسك</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="item-count-badge"></span>
+                        <div class="toggle-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <ul class="perfume-list">
+                    <li class="perfume-item" data-weight="10"><span class="item-name"><span class="item-dot"></span><span>ليلك</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>10g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="50"><span class="item-name"><span class="item-dot"></span><span>تفاح</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>50g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="320"><span class="item-name"><span class="item-dot"></span><span>نيفيا كريم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>320g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="290"><span class="item-name"><span class="item-dot"></span><span>هيدن شولدرز</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>290g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="286"><span class="item-name"><span class="item-dot"></span><span>البنفسج</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>286g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="110"><span class="item-name"><span class="item-dot"></span><span>لافندر</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>110g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+
+                    <li class="perfume-item" data-weight="1014"><span class="item-name"><span class="item-dot"></span><span>اكسترافاغانس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1014g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1012"><span class="item-name"><span class="item-dot"></span><span>اكسترافاغانس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1012g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1022"><span class="item-name"><span class="item-dot"></span><span>اكسترافاغانس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1022g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1011"><span class="item-name"><span class="item-dot"></span><span>اكسترافاغانس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1011g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="829"><span class="item-name"><span class="item-dot"></span><span>كريستوبال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>829g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="1014"><span class="item-name"><span class="item-dot"></span><span>كريستوبال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1014g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="579"><span class="item-name"><span class="item-dot"></span><span>كريستوبال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>579g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="1026"><span class="item-name"><span class="item-dot"></span><span>كريستوبال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1026g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="1010"><span class="item-name"><span class="item-dot"></span><span>اكسترافاغانس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1010g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+
+                    <li class="perfume-item" data-weight="1019"><span class="item-name"><span class="item-dot"></span><span>كريستوبال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1019g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="1027"><span class="item-name"><span class="item-dot"></span><span>روز اوف نومان باي ريدو</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1027g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="1016"><span class="item-name"><span class="item-dot"></span><span>روز اوف نومان باي ريدو</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1016g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="263"><span class="item-name"><span class="item-dot"></span><span>روز اوف نومان باي ريدو</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>263g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+
+                    <li class="perfume-item" data-weight="366"><span class="item-name"><span class="item-dot"></span><span>ماليبو للمختوم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>366g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="550"><span class="item-name"><span class="item-dot"></span><span>لاكشري دارك</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>550g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="1005"><span class="item-name"><span class="item-dot"></span><span>ماليبو للمختوم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1005g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="990"><span class="item-name"><span class="item-dot"></span><span>ماليبو للمختوم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>990g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="990"><span class="item-name"><span class="item-dot"></span><span>ماليبو للمختوم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>990g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+
+                    <li class="perfume-item" data-weight="590"><span class="item-name"><span class="item-dot"></span><span>مسك رمان</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>590g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>مسك طهارة</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="600"><span class="item-name"><span class="item-dot"></span><span>مسك طهارة</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>600g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="250"><span class="item-name"><span class="item-dot"></span><span>مسك توت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>250g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="730"><span class="item-name"><span class="item-dot"></span><span>مسك طهارة</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>730g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="350"><span class="item-name"><span class="item-dot"></span><span>مسك فانيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>350g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="1119"><span class="item-name"><span class="item-dot"></span><span>مسك باودر</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1119g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                </ul>
+            </div>
+
+            <!-- ====== خزانة رجالي 1 ====== -->
+            <div class="category-card" data-type="men">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="header-left">
+                        <div class="type-icon"><i class="fas fa-mars"></i></div>
+                        <div class="header-text">
+                            <h3>خزانة رجالي (1)</h3>
+                            <span class="sub-info">أصناف الإسانس الرجالية</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="item-count-badge"></span>
+                        <div class="toggle-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <ul class="perfume-list">
+                    <li class="perfume-item" data-weight="1105"><span class="item-name"><span class="item-dot"></span><span>بكرات روج Mfk</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1105g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="400"><span class="item-name"><span class="item-dot"></span><span>بكرات روج Mfk</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>400g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="1015"><span class="item-name"><span class="item-dot"></span><span>بريمير / همر</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1015g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="560"><span class="item-name"><span class="item-dot"></span><span>بريمير / همر</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>560g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="455"><span class="item-name"><span class="item-dot"></span><span>مليون لاكي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>455g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="1001"><span class="item-name"><span class="item-dot"></span><span>مليون لاكي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1001g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١ ط٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="1003"><span class="item-name"><span class="item-dot"></span><span>مليون لاكي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1003g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1005"><span class="item-name"><span class="item-dot"></span><span>ذا غيم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1005g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1010"><span class="item-name"><span class="item-dot"></span><span>ذا غيم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1010g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1250"><span class="item-name"><span class="item-dot"></span><span>ذا غيم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1250g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="510"><span class="item-name"><span class="item-dot"></span><span>سوفاج</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>510g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="510"><span class="item-name"><span class="item-dot"></span><span>سوفاج</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>510g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="510"><span class="item-name"><span class="item-dot"></span><span>سوفاج</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>510g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="515"><span class="item-name"><span class="item-dot"></span><span>الكسندريا Xerjoof 2</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>515g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="104"><span class="item-name"><span class="item-dot"></span><span>الكسندريا Xerjoof 2</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>104g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="516"><span class="item-name"><span class="item-dot"></span><span>الكسندريا Xerjoof 2</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>516g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="101"><span class="item-name"><span class="item-dot"></span><span>ايماجنيشن Lv</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>101g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+
+                    <li class="perfume-item" data-weight="516"><span class="item-name"><span class="item-dot"></span><span>ايماجنيشن Lv</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>516g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="515"><span class="item-name"><span class="item-dot"></span><span>اربيان تونكا Montal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>515g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="310"><span class="item-name"><span class="item-dot"></span><span>جيمس بوند / 007</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>310g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="1255"><span class="item-name"><span class="item-dot"></span><span>هيدسون قصة</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1255g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="608"><span class="item-name"><span class="item-dot"></span><span>جاكومو Jacomo</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>608g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+
+                    <li class="perfume-item" data-weight="270"><span class="item-name"><span class="item-dot"></span><span>كلمات Ajmal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>270g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="718"><span class="item-name"><span class="item-dot"></span><span>ال هوم ايفسان لوران</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>718g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="614"><span class="item-name"><span class="item-dot"></span><span>هوغو انرجايس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>614g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="855"><span class="item-name"><span class="item-dot"></span><span>هوغو انرجايس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>855g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="615"><span class="item-name"><span class="item-dot"></span><span>مضاوي Ajmal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>615g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+
+                    <li class="perfume-item" data-weight="635"><span class="item-name"><span class="item-dot"></span><span>الثائر Pdm</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>635g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="235"><span class="item-name"><span class="item-dot"></span><span>كريد سيلفر مونتن</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>235g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="705"><span class="item-name"><span class="item-dot"></span><span>اريا بورا Xerjoof</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>705g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="476"><span class="item-name"><span class="item-dot"></span><span>ماجيك Aljazeera</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>476g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="624"><span class="item-name"><span class="item-dot"></span><span>نيشاني هاشيفات</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>624g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+
+                    <li class="perfume-item" data-weight="599"><span class="item-name"><span class="item-dot"></span><span>بوا امبريال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>599g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٧</span></span></li>
+                    <li class="perfume-item" data-weight="706"><span class="item-name"><span class="item-dot"></span><span>سوفاج الكسير</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>706g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٧</span></span></li>
+                    <li class="perfume-item" data-weight="909"><span class="item-name"><span class="item-dot"></span><span>ديزاير Dunhil</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>909g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٧</span></span></li>
+                    <li class="perfume-item" data-weight="702"><span class="item-name"><span class="item-dot"></span><span>امبري لذر Tm</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>702g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٧</span></span></li>
+                    <li class="perfume-item" data-weight="410"><span class="item-name"><span class="item-dot"></span><span>سكاندل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>410g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٧</span></span></li>
+                </ul>
+            </div>
+
+            <!-- ====== خزانة رجالي 2 ====== -->
+            <div class="category-card" data-type="men">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="header-left">
+                        <div class="type-icon"><i class="fas fa-mars"></i></div>
+                        <div class="header-text">
+                            <h3>خزانة رجالي (2)</h3>
+                            <span class="sub-info">أصناف الإسانس الرجالية</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="item-count-badge"></span>
+                        <div class="toggle-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <ul class="perfume-list">
+                    <li class="perfume-item" data-weight="585"><span class="item-name"><span class="item-dot"></span><span>لاميل الكسير Jpg</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>585g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="736"><span class="item-name"><span class="item-dot"></span><span>بولو بلو</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>736g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="747"><span class="item-name"><span class="item-dot"></span><span>وصال Ajmal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>747g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="717"><span class="item-name"><span class="item-dot"></span><span>جان فرانكوفيري</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>717g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="601"><span class="item-name"><span class="item-dot"></span><span>هوغو بوس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>601g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+
+                    <li class="perfume-item" data-weight="978"><span class="item-name"><span class="item-dot"></span><span>توسكان لذر Tm</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>978g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="527"><span class="item-name"><span class="item-dot"></span><span>ناكسوس Xerjoof</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>527g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1007"><span class="item-name"><span class="item-dot"></span><span>كاريرا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1007g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="612"><span class="item-name"><span class="item-dot"></span><span>عنبر عود Ajmal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>612g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="604"><span class="item-name"><span class="item-dot"></span><span>لوكي مان</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>604g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="502"><span class="item-name"><span class="item-dot"></span><span>الأبياد Arabianoud</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>502g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="599"><span class="item-name"><span class="item-dot"></span><span>بوتلد Hugoboss</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>599g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="554"><span class="item-name"><span class="item-dot"></span><span>نيشاني اني</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>554g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="617"><span class="item-name"><span class="item-dot"></span><span>كينغ k</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>617g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="604"><span class="item-name"><span class="item-dot"></span><span>توباكو فانيل Tm</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>604g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+
+                    <li class="perfume-item" data-weight="702"><span class="item-name"><span class="item-dot"></span><span>اكوا برافا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>702g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="604"><span class="item-name"><span class="item-dot"></span><span>فندي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>604g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="962"><span class="item-name"><span class="item-dot"></span><span>ميغامار Ortoparisi</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>962g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="512"><span class="item-name"><span class="item-dot"></span><span>سنو - سكلبتشر</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>512g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="1227"><span class="item-name"><span class="item-dot"></span><span>ازارو ليجينت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1227g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+
+                    <li class="perfume-item" data-weight="159"><span class="item-name"><span class="item-dot"></span><span>فهرنهايت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>159g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="1001"><span class="item-name"><span class="item-dot"></span><span>اوشن لونج Skada</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1001g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="809"><span class="item-name"><span class="item-dot"></span><span>ماركوجا Masioncrivile</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>809g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="358"><span class="item-name"><span class="item-dot"></span><span>اسنتريك ماليكولاس 002</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>358g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="1012"><span class="item-name"><span class="item-dot"></span><span>بلو شانيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1012g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+
+                    <li class="perfume-item" data-weight="523"><span class="item-name"><span class="item-dot"></span><span>خمرة</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>523g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="707"><span class="item-name"><span class="item-dot"></span><span>باشا Cartier</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>707g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="503"><span class="item-name"><span class="item-dot"></span><span>بربر ليبل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>503g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="751"><span class="item-name"><span class="item-dot"></span><span>اكسينتو Xerjoof</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>751g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="797"><span class="item-name"><span class="item-dot"></span><span>عود Gucci</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>797g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                </ul>
+            </div>
+
+            <!-- ====== خزانة رجالي 3 ====== -->
+            <div class="category-card" data-type="men">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="header-left">
+                        <div class="type-icon"><i class="fas fa-mars"></i></div>
+                        <div class="header-text">
+                            <h3>خزانة رجالي (3)</h3>
+                            <span class="sub-info">أصناف الإسانس الرجالية</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="item-count-badge"></span>
+                        <div class="toggle-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <ul class="perfume-list">
+                    <li class="perfume-item" data-weight="711"><span class="item-name"><span class="item-dot"></span><span>باد بوي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>711g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="310"><span class="item-name"><span class="item-dot"></span><span>سترنغر انتنسي Armani</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>310g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="145"><span class="item-name"><span class="item-dot"></span><span>لابيدوس Ted</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>145g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="503"><span class="item-name"><span class="item-dot"></span><span>لومال Jpg</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>503g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="600"><span class="item-name"><span class="item-dot"></span><span>فلانتينو / دارج</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>600g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+
+                    <li class="perfume-item" data-weight="395"><span class="item-name"><span class="item-dot"></span><span>ميستر بربري</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>395g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="603"><span class="item-name"><span class="item-dot"></span><span>نوار اكستريم Tm</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>603g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="478"><span class="item-name"><span class="item-dot"></span><span>لورد جورج Tragedy</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>478g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>ازارو وانتد</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="600"><span class="item-name"><span class="item-dot"></span><span>ازارو كروم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>600g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="455"><span class="item-name"><span class="item-dot"></span><span>لاكوست تشالينج</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>455g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="196"><span class="item-name"><span class="item-dot"></span><span>لاكوست اسينشال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>196g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="705"><span class="item-name"><span class="item-dot"></span><span>شيخ الشيوخ Lattafa</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>705g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="185"><span class="item-name"><span class="item-dot"></span><span>امريكان سيبريت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>185g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="348"><span class="item-name"><span class="item-dot"></span><span>سلفر سينت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>348g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+
+                    <li class="perfume-item" data-weight="504"><span class="item-name"><span class="item-dot"></span><span>بلاك افغانو Nassomato</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>504g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="505"><span class="item-name"><span class="item-dot"></span><span>توماس كوسمالا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>505g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="196"><span class="item-name"><span class="item-dot"></span><span>ماي سيلف</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>196g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="402"><span class="item-name"><span class="item-dot"></span><span>Ck1</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>402g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="585"><span class="item-name"><span class="item-dot"></span><span>شانيل ايجوست / بلاتينيوم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>585g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="501"><span class="item-name"><span class="item-dot"></span><span>غاردن بارادايس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>501g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+
+                    <li class="perfume-item" data-weight="55"><span class="item-name"><span class="item-dot"></span><span>Sixsy 212</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>55g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="201"><span class="item-name"><span class="item-dot"></span><span>واي اوف سان لوران y.s.l</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>201g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="105"><span class="item-name"><span class="item-dot"></span><span>هوغو ذا سينت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>105g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="382"><span class="item-name"><span class="item-dot"></span><span>بروت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>382g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="470"><span class="item-name"><span class="item-dot"></span><span>vip212</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>470g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+
+                    <li class="perfume-item" data-weight="496"><span class="item-name"><span class="item-dot"></span><span>مان 212</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>496g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                </ul>
+            </div>
+
+            <!-- ====== خزانة نسائي 4 ====== -->
+            <div class="category-card" data-type="women">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="header-left">
+                        <div class="type-icon"><i class="fas fa-venus"></i></div>
+                        <div class="header-text">
+                            <h3>خزانة نسائي (4)</h3>
+                            <span class="sub-info">أصناف الإسانس النسائية</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="item-count-badge"></span>
+                        <div class="toggle-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <ul class="perfume-list">
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>بومب شيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>بومب شيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>بومب شيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>بربري هير</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>بربري هير</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>هفنلي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>هامول</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="500"><span class="item-name"><span class="item-dot"></span><span>هامول</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>500g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>عود ابيض Ajmal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1284"><span class="item-name"><span class="item-dot"></span><span>عود ابيض Ajmal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1284g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="250"><span class="item-name"><span class="item-dot"></span><span>فلور مسك Narsico</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>250g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="705"><span class="item-name"><span class="item-dot"></span><span>رومبا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>705g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="170"><span class="item-name"><span class="item-dot"></span><span>روز مسك</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>170g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="555"><span class="item-name"><span class="item-dot"></span><span>لابومبا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>555g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="210"><span class="item-name"><span class="item-dot"></span><span>غولد داست / غبار الذهب</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>210g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+
+                    <li class="perfume-item" data-weight="605"><span class="item-name"><span class="item-dot"></span><span>مون باريس Ysl</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>605g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>مدام Jpg</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="730"><span class="item-name"><span class="item-dot"></span><span>مدام Jpg</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>730g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="945"><span class="item-name"><span class="item-dot"></span><span>سكاندل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>945g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="314"><span class="item-name"><span class="item-dot"></span><span>سكاندل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>314g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+
+                    <li class="perfume-item" data-weight="673"><span class="item-name"><span class="item-dot"></span><span>ناركوتيك Mw</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>673g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="641"><span class="item-name"><span class="item-dot"></span><span>نيود</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>641g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="507"><span class="item-name"><span class="item-dot"></span><span>برادوكس Prada</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>507g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="460"><span class="item-name"><span class="item-dot"></span><span>فانتازيا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>460g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="1161"><span class="item-name"><span class="item-dot"></span><span>بورن ان روما Valinteno</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1161g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+
+                    <li class="perfume-item" data-weight="243"><span class="item-name"><span class="item-dot"></span><span>بليجرز</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>243g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="609"><span class="item-name"><span class="item-dot"></span><span>مس ديور</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>609g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="464"><span class="item-name"><span class="item-dot"></span><span>موردان ووردز Xerjoof</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>464g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="248"><span class="item-name"><span class="item-dot"></span><span>يس آيام كشريل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>248g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="273"><span class="item-name"><span class="item-dot"></span><span>بيكوز اتس يو ارماني</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>273g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                </ul>
+            </div>
+
+            <!-- ====== خزانة نسائي 5 ====== -->
+            <div class="category-card" data-type="women">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="header-left">
+                        <div class="type-icon"><i class="fas fa-venus"></i></div>
+                        <div class="header-text">
+                            <h3>خزانة نسائي (5)</h3>
+                            <span class="sub-info">أصناف الإسانس النسائية</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="item-count-badge"></span>
+                        <div class="toggle-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <ul class="perfume-list">
+                    <li class="perfume-item" data-weight="602"><span class="item-name"><span class="item-dot"></span><span>كوكونات باشن</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>602g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="216"><span class="item-name"><span class="item-dot"></span><span>آنجل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>216g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="556"><span class="item-name"><span class="item-dot"></span><span>بيور بوازون</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>556g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="605"><span class="item-name"><span class="item-dot"></span><span>كينزو فلور</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>605g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="598"><span class="item-name"><span class="item-dot"></span><span>سنشوال</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>598g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+
+                    <li class="perfume-item" data-weight="889"><span class="item-name"><span class="item-dot"></span><span>روز فانيل Mancera</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>889g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="1004"><span class="item-name"><span class="item-dot"></span><span>رومانس ن Rasasi</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1004g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="500"><span class="item-name"><span class="item-dot"></span><span>رومانس ن Rasasi</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>500g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="559"><span class="item-name"><span class="item-dot"></span><span>آزارو وانتد غيرل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>559g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="196"><span class="item-name"><span class="item-dot"></span><span>جادور</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>196g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="507"><span class="item-name"><span class="item-dot"></span><span>كيالي مارشملو</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>507g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="600"><span class="item-name"><span class="item-dot"></span><span>غوتشي راش</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>600g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="500"><span class="item-name"><span class="item-dot"></span><span>كيالي فانيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>500g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="500"><span class="item-name"><span class="item-dot"></span><span>كيالي فانيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>500g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="500"><span class="item-name"><span class="item-dot"></span><span>كيالي فانيل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>500g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+
+                    <li class="perfume-item" data-weight="707"><span class="item-name"><span class="item-dot"></span><span>ويك آند</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>707g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="709"><span class="item-name"><span class="item-dot"></span><span>ميدنايت روز Lancome</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>709g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="865"><span class="item-name"><span class="item-dot"></span><span>سبايس بومب V&R</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>865g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="320"><span class="item-name"><span class="item-dot"></span><span>شانيل شانص</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>320g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="414"><span class="item-name"><span class="item-dot"></span><span>العرائس Swisarabian</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>414g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+
+                    <li class="perfume-item" data-weight="249"><span class="item-name"><span class="item-dot"></span><span>بودي Burberry</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>249g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="234"><span class="item-name"><span class="item-dot"></span><span>اترنتي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>234g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="203"><span class="item-name"><span class="item-dot"></span><span>مون سباركل سكادة</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>203g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="408"><span class="item-name"><span class="item-dot"></span><span>مغنتزم</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>408g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="393"><span class="item-name"><span class="item-dot"></span><span>ديلينا Pdm</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>393g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+
+                    <li class="perfume-item" data-weight="393"><span class="item-name"><span class="item-dot"></span><span>ليبر</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>393g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="202"><span class="item-name"><span class="item-dot"></span><span>شانص اوتندر Chanel</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>202g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="156"><span class="item-name"><span class="item-dot"></span><span>رويرتو كافالي Gissah</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>156g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="1176"><span class="item-name"><span class="item-dot"></span><span>روج - رالف رولين</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1176g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="249"><span class="item-name"><span class="item-dot"></span><span>وان اند اونلي Cd</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>249g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                </ul>
+            </div>
+
+            <!-- ====== خزانة نسائي 6 ====== -->
+            <div class="category-card" data-type="women">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="header-left">
+                        <div class="type-icon"><i class="fas fa-venus"></i></div>
+                        <div class="header-text">
+                            <h3>خزانة نسائي (6)</h3>
+                            <span class="sub-info">أصناف الإسانس النسائية</span>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="item-count-badge"></span>
+                        <div class="toggle-arrow"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <ul class="perfume-list">
+                    <li class="perfume-item" data-weight="699"><span class="item-name"><span class="item-dot"></span><span>جوي فول Cd</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>699g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="177"><span class="item-name"><span class="item-dot"></span><span>كركي ترزيانا تريبزي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>177g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="697"><span class="item-name"><span class="item-dot"></span><span>انيس انيس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>697g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="508"><span class="item-name"><span class="item-dot"></span><span>نوا كشريل</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>508g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+                    <li class="perfume-item" data-weight="64"><span class="item-name"><span class="item-dot"></span><span>هوغو وومن</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>64g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ١</span></span></li>
+
+                    <li class="perfume-item" data-weight="306"><span class="item-name"><span class="item-dot"></span><span>توليب</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>306g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="811"><span class="item-name"><span class="item-dot"></span><span>ليمون</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>811g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="323"><span class="item-name"><span class="item-dot"></span><span>عنبر</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>323g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="385"><span class="item-name"><span class="item-dot"></span><span>مس لافرن</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>385g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+                    <li class="perfume-item" data-weight="600"><span class="item-name"><span class="item-dot"></span><span>ليدي مليون</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>600g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٢</span></span></li>
+
+                    <li class="perfume-item" data-weight="707"><span class="item-name"><span class="item-dot"></span><span>جفنشي اوريغانزا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>707g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="150"><span class="item-name"><span class="item-dot"></span><span>Vip</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>150g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="707"><span class="item-name"><span class="item-dot"></span><span>ستيلا / داسيديلا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>707g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>شيفون</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+                    <li class="perfume-item" data-weight="507"><span class="item-name"><span class="item-dot"></span><span>شيفون</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>507g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٣</span></span></li>
+
+                    <li class="perfume-item" data-weight="701"><span class="item-name"><span class="item-dot"></span><span>ايلي صعب</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>701g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="1000"><span class="item-name"><span class="item-dot"></span><span>فانيل باودر - ماتير بومير</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>1000g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="500"><span class="item-name"><span class="item-dot"></span><span>فانيل باودر - ماتير بومير</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>500g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="500"><span class="item-name"><span class="item-dot"></span><span>فيري</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>500g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+                    <li class="perfume-item" data-weight="260"><span class="item-name"><span class="item-dot"></span><span>مسك ابيض</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>260g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٤</span></span></li>
+
+                    <li class="perfume-item" data-weight="312"><span class="item-name"><span class="item-dot"></span><span>دوف</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>312g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="597"><span class="item-name"><span class="item-dot"></span><span>فا</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>597g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="696"><span class="item-name"><span class="item-dot"></span><span>جوفان مسك Ajmal</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>696g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="601"><span class="item-name"><span class="item-dot"></span><span>لوكس</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>601g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+                    <li class="perfume-item" data-weight="32"><span class="item-name"><span class="item-dot"></span><span>لايت شوكلت</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>32g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٥</span></span></li>
+
+                    <li class="perfume-item" data-weight="74"><span class="item-name"><span class="item-dot"></span><span>خمرة قهوة Lattafa</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>74g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="43"><span class="item-name"><span class="item-dot"></span><span>مسك طهارة شفاف</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>43g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="200"><span class="item-name"><span class="item-dot"></span><span>ليسي مياي لو ديسي</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>200g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                    <li class="perfume-item" data-weight="292"><span class="item-name"><span class="item-dot"></span><span>Caron</span></span><span class="item-badges"><span class="badge badge-weight"><i class="fas fa-weight-hanging"></i>292g</span><span class="badge badge-shelf"><i class="fas fa-archive"></i>رف ٦</span></span></li>
+                </ul>
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults">
+                <div class="no-results-visual"><i class="fas fa-search"></i></div>
+                <h3>لم يتم العثور على نتائج</h3>
+                <p>جرّب اسم آخر أو تحقق من الوزن</p>
+                <div class="suggestions">
+                    <span class="suggestion-chip" onclick="quickSearch('سوفاج')">سوفاج</span>
+                    <span class="suggestion-chip" onclick="quickSearch('بومب شيل')">بومب شيل</span>
+                    <span class="suggestion-chip" onclick="quickSearch('مسك')">مسك</span>
+                    <span class="suggestion-chip" onclick="quickSearch('1000')">1000</span>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- end content-wrapper -->
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Keyboard Shortcut Hint -->
+    <div class="shortcut-hint" id="shortcutHint">
+        <span class="key-badge">Ctrl</span>+<span class="key-badge">K</span>
+        <span>للبحث السريع</span>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <i class="fas fa-flask-vial"></i>
+                <span> إدارة الزيوت </span>
+            </div>
+            <p>جميع الحقوق محفوظة © 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // ===================================
+        // Loading Screen
+        // ===================================
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                setTimeout(() => {
+                    document.getElementById('shortcutHint').classList.add('visible');
+                    setTimeout(() => {
+                        document.getElementById('shortcutHint').classList.remove('visible');
+                    }, 5000);
+                }, 800);
+            }, 1000);
+        });
+
+        // ===================================
+        // Floating Particles
+        // ===================================
+        (function createParticles() {
+            const container = document.getElementById('particles');
+            const count = 20;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (15 + Math.random() * 25) + 's';
+                p.style.animationDelay = (Math.random() * 20) + 's';
+                p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+                p.style.opacity = (0.1 + Math.random() * 0.3);
+                container.appendChild(p);
+            }
+        })();
+
+        // ===================================
+        // Arabic Text Normalization
+        // ===================================
+        function normalizeArabic(text) {
+            return text.toString().toLowerCase()
+                .replace(/[أإآٱٲٳءٵ]/g, 'ا')
+                .replace(/ة/g, 'ه')
+                .replace(/ى/g, 'ي')
+                .replace(/ؤ/g, 'و')
+                .replace(/ئ/g, 'ي')
+                .replace(/[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7\u06E8\u06EA-\u06ED]/g, '')
+                .replace(/[\s\-_\/\.]+/g, '');
+        }
+
+        // ===================================
+        // Toast Notifications
+        // ===================================
+        function showToast(message, icon = 'fas fa-check-circle', color = '#10b981') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('i').className = icon;
+            toast.querySelector('i').style.color = color;
+            toast.querySelector('span').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ===================================
+        // Stats & Count
+        // ===================================
+        function updateStats() {
+            const allItems = document.querySelectorAll('.perfume-item');
+            const categories = document.querySelectorAll('.category-card');
+            const menCards = document.querySelectorAll('[data-type="men"]');
+            const womenCards = document.querySelectorAll('[data-type="women"]');
+            const sealedCards = document.querySelectorAll('[data-type="sealed"]');
+
+            let menCount = 0, womenCount = 0, sealedCount = 0;
+            menCards.forEach(c => menCount += c.querySelectorAll('.perfume-item').length);
+            womenCards.forEach(c => womenCount += c.querySelectorAll('.perfume-item').length);
+            sealedCards.forEach(c => sealedCount += c.querySelectorAll('.perfume-item').length);
+
+            animateNumber('totalCount', allItems.length);
+            animateNumber('categoryCount', categories.length);
+            animateNumber('menCount', menCount);
+            animateNumber('womenCount', womenCount);
+
+            // Update filter counts
+            document.getElementById('filterCountAll').textContent = allItems.length;
+            document.getElementById('filterCountMen').textContent = menCount;
+            document.getElementById('filterCountWomen').textContent = womenCount;
+            document.getElementById('filterCountSealed').textContent = sealedCount;
+
+            // Update each card count
+            categories.forEach(card => {
+                const count = card.querySelectorAll('.perfume-item').length;
+                card.querySelector('.item-count-badge').textContent = count + ' صنف';
+            });
+
+            // Add weight totals
+            categories.forEach(card => {
+                const list = card.querySelector('.perfume-list');
+                const items = list.querySelectorAll('.perfume-item');
+                let totalWeight = 0;
+                items.forEach(item => {
+                    totalWeight += parseInt(item.getAttribute('data-weight') || 0);
+                });
+
+                // Remove existing total if any
+                const existing = list.querySelector('.weight-total');
+                if (existing) existing.remove();
+
+                const totalDiv = document.createElement('li');
+                totalDiv.className = 'weight-total';
+                totalDiv.innerHTML = `
+                    <span class="total-label"><i class="fas fa-calculator"></i> إجمالي الوزن</span>
+                    <span class="total-value">${totalWeight.toLocaleString('ar-SA')}g</span>
+                `;
+                list.appendChild(totalDiv);
+            });
+        }
+
+        function animateNumber(id, target) {
+            const el = document.getElementById(id);
+            let current = 0;
+            const duration = 1500;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+                current = Math.floor(eased * target);
+                el.textContent = current;
+                if (progress < 1) requestAnimationFrame(update);
+                else el.textContent = target;
+            }
+            requestAnimationFrame(update);
+        }
+
+        updateStats();
+
+        // ===================================
+        // Toggle Card
+        // ===================================
+        function toggleCard(el) {
+            const card = el.closest('.category-card');
+            card.classList.toggle('collapsed');
+        }
+
+        function expandAll() {
+            document.querySelectorAll('.category-card').forEach(c => c.classList.remove('collapsed'));
+            showToast('تم فتح جميع الخزانات', 'fas fa-expand', '#4f6ef7');
+        }
+
+        function collapseAll() {
+            document.querySelectorAll('.category-card').forEach(c => c.classList.add('collapsed'));
+            showToast('تم طي جميع الخزانات', 'fas fa-compress', '#f59e0b');
+        }
+
+        // ===================================
+        // Search
+        // ===================================
+        let currentFilter = 'all';
+        let searchTimeout;
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(searchPerfumes, 150); // debounce
+        });
+
+        function searchPerfumes() {
+            const rawInput = document.getElementById('searchInput').value.trim();
+            const input = normalizeArabic(rawInput);
+            const categories = document.querySelectorAll('.category-card');
+            const clearBtn = document.getElementById('clearBtn');
+            const searchMeta = document.getElementById('searchMeta');
+            const noResultsMsg = document.getElementById('noResults');
+            let hasGlobalResult = false;
+            let totalResults = 0;
+
+            clearBtn.classList.toggle('visible', rawInput.length > 0);
+
+            categories.forEach(category => {
+                const type = category.getAttribute('data-type');
+                if (currentFilter !== 'all' && type !== currentFilter) {
+                    category.style.display = 'none';
+                    return;
+                }
+
+                const items = category.querySelectorAll('.perfume-item');
+                let hasVisibleItem = false;
+
+                items.forEach(item => {
+                    const nameText = normalizeArabic(item.querySelector('.item-name').textContent);
+                    const weightText = (item.getAttribute('data-weight') || '').toString();
+                    const shelfText = normalizeArabic(
+                        item.querySelector('.badge-shelf') ? item.querySelector('.badge-shelf').textContent : ''
+                    );
+
+                    const match = !input || nameText.includes(input) || weightText.includes(rawInput.trim()) || shelfText.includes(input);
+
+                    if (match) {
+                        item.style.display = '';
+                        hasVisibleItem = true;
+                        if (input) totalResults++;
+                        item.classList.toggle('highlight', input.length > 0);
+                    } else {
+                        item.style.display = 'none';
+                        item.classList.remove('highlight');
+                    }
+                });
+
+                // Show/hide weight total row
+                const weightTotal = category.querySelector('.weight-total');
+                if (weightTotal) {
+                    weightTotal.style.display = input.length > 0 ? 'none' : '';
+                }
+
+                if (hasVisibleItem) {
+                    category.style.display = '';
+                    if (input.length > 0) category.classList.remove('collapsed');
+                    hasGlobalResult = true;
+                } else {
+                    category.style.display = 'none';
+                }
+            });
+
+            if (input.length > 0) {
+                document.getElementById('resultsCount').textContent = totalResults;
+                searchMeta.classList.add('visible');
+            } else {
+                searchMeta.classList.remove('visible');
+            }
+
+            noResultsMsg.style.display = (hasGlobalResult || !input) ? 'none' : 'block';
+        }
+
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            input.value = '';
+            input.focus();
+            document.getElementById('clearBtn').classList.remove('visible');
+            document.getElementById('searchMeta').classList.remove('visible');
+            filterCategory(currentFilter, document.querySelector('.filter-tab.active'));
+            showToast('تم مسح البحث', 'fas fa-eraser', '#f87171');
+        }
+
+        function quickSearch(term) {
+            document.getElementById('searchInput').value = term;
+            searchPerfumes();
+            document.getElementById('searchInput').focus();
+        }
+
+        // ===================================
+        // Filter
+        // ===================================
+        function filterCategory(type, btn) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const input = document.getElementById('searchInput').value.trim();
+            if (input.length > 0) {
+                searchPerfumes();
+            } else {
+                document.querySelectorAll('.category-card').forEach(card => {
+                    const cardType = card.getAttribute('data-type');
+                    if (type === 'all' || cardType === type) {
+                        card.style.display = '';
+                        card.querySelectorAll('.perfume-item').forEach(item => {
+                            item.style.display = '';
+                            item.classList.remove('highlight');
+                        });
+                        // Show weight total
+                        const wt = card.querySelector('.weight-total');
+                        if (wt) wt.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                document.getElementById('noResults').style.display = 'none';
+            }
+
+            const typeNames = { all: 'الكل', men: 'الرجالي', women: 'النسائي', sealed: 'المختوم والمسك' };
+            showToast(`عرض: ${typeNames[type]}`, 'fas fa-filter', '#7c3aed');
+        }
+
+        // ===================================
+        // Scroll Events
+        // ===================================
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            document.getElementById('backToTop').classList.toggle('visible', scrollY > 400);
+            document.getElementById('searchSection').classList.toggle('scrolled', scrollY > 100);
+            lastScrollY = scrollY;
+        }, { passive: true });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ===================================
+        // Keyboard Shortcuts
+        // ===================================
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+K or Cmd+K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                const input = document.getElementById('searchInput');
+                input.focus();
+                input.select();
+                showToast('وضع البحث السريع', 'fas fa-keyboard', '#22d3ee');
+            }
+
+            // Escape to clear
+            if (e.key === 'Escape') {
+                const input = document.getElementById('searchInput');
+                if (input.value) {
+                    clearSearch();
+                } else {
+                    input.blur();
+                }
+            }
+        });
+
+        // ===================================
+        // Double-click item to copy name
+        // ===================================
+        document.querySelectorAll('.perfume-item').forEach(item => {
+            item.addEventListener('dblclick', () => {
+                const name = item.querySelector('.item-name span:last-child').textContent.trim();
+                navigator.clipboard.writeText(name).then(() => {
+                    showToast(`تم نسخ: ${name}`, 'fas fa-copy', '#22d3ee');
+                }).catch(() => {
+                    showToast('تعذر النسخ', 'fas fa-exclamation-triangle', '#ef4444');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
